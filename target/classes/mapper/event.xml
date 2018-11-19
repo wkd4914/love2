@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SQL.event">
+  <select id="selecteventlist" resultType="ei">
+    select * from event 
+    <where>
+  		<if test="eno!=null">and eno = #{eno}</if>
+  		<if test="etitle!=null">and etitle = #{etitle}</if>
+  		<if test="edate!=null">and edate =#{edate}</if>
+  		<if test="econtent!=null">and econtent = #{econtent}</if>
+  		<if test="epicture!=null">and epicture = #{epicture}</if>
+    </where>
+    order by eno
+  </select>
+  <select id="selectevent" resultType="ei">
+    select * from event 
+    where eno= #{eno}
+  </select>
+  <insert id="insertevent" parameterType="ei">
+  	insert into event(eno, etitle, edate, econtent, epicture)
+  	values(enum.nextval,#{etitle}, #{edate}, #{econtent}, #{epicture})
+  </insert>
+  
+  <update id="updateevent" parameterType="ei">
+  	update event
+  	<set>
+  		<if test="etitle!=null">etitle = #{etitle},</if>
+  		<if test="edate!=null">edate = #{edate},</if>
+  		<if test="econtent!=null">econtent = #{econtent},</if>
+  		<if test="epicture!=null">epicture = #{epicture}</if>
+  	</set>
+  	where eno=#{eno}
+  </update>
+  
+  <delete id="deleteevent" parameterType="int">
+  	delete from event
+  	where eno=#{eno}
+  </delete>
+</mapper>

@@ -13,10 +13,14 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 public class FileUtil {
 	
-	public static final String UPLOAD_PATH = "C:\\jsp_study\\workspace\\love2\\src\\main\\webapp\\resources\\img\\upload";
+	public static String UPLOAD_PATH = null;
 	
 	@SuppressWarnings("unchecked")
 	public static Map<String, Object> saveFile(MultipartHttpServletRequest request){
+		if(UPLOAD_PATH == null) {
+			UPLOAD_PATH = request.getSession().getServletContext().getRealPath("/") + "resources/img/upload";
+		}
+		
 		Map<String, Object> map = new HashMap<>();
 		
 		Map<String, Object> data = request.getParameterMap();
